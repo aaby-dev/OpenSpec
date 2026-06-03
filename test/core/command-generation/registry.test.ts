@@ -3,22 +3,16 @@ import { CommandAdapterRegistry } from '../../../src/core/command-generation/reg
 
 describe('command-generation/registry', () => {
   describe('get', () => {
-    it('should return AiDE adapter for "aide"', () => {
-      const adapter = CommandAdapterRegistry.get('aide');
-      expect(adapter).toBeDefined();
-      expect(adapter?.toolId).toBe('aide');
-    });
-
     it('should return Claude adapter for "claude"', () => {
       const adapter = CommandAdapterRegistry.get('claude');
       expect(adapter).toBeDefined();
       expect(adapter?.toolId).toBe('claude');
- });
+    });
 
     it('should return Cursor adapter for "cursor"', () => {
-  const adapter = CommandAdapterRegistry.get('cursor');
+      const adapter = CommandAdapterRegistry.get('cursor');
       expect(adapter).toBeDefined();
-   expect(adapter?.toolId).toBe('cursor');
+      expect(adapter?.toolId).toBe('cursor');
     });
 
     it('should return Windsurf adapter for "windsurf"', () => {
@@ -31,7 +25,7 @@ describe('command-generation/registry', () => {
       const adapter = CommandAdapterRegistry.get('junie');
       expect(adapter).toBeDefined();
       expect(adapter?.toolId).toBe('junie');
-  });
+    });
 
     it('should return undefined for unregistered tool', () => {
       const adapter = CommandAdapterRegistry.get('unknown-tool');
@@ -39,7 +33,7 @@ describe('command-generation/registry', () => {
     });
 
     it('should return undefined for empty string', () => {
-   const adapter = CommandAdapterRegistry.get('');
+      const adapter = CommandAdapterRegistry.get('');
       expect(adapter).toBeUndefined();
     });
   });
@@ -47,8 +41,8 @@ describe('command-generation/registry', () => {
   describe('getAll', () => {
     it('should return array of all registered adapters', () => {
       const adapters = CommandAdapterRegistry.getAll();
- expect(Array.isArray(adapters)).toBe(true);
-   expect(adapters.length).toBeGreaterThanOrEqual(3); // At least Claude, Cursor, Windsurf
+      expect(Array.isArray(adapters)).toBe(true);
+      expect(adapters.length).toBeGreaterThanOrEqual(3); // At least Claude, Cursor, Windsurf
     });
 
     it('should include Claude, Cursor, and Windsurf adapters', () => {
@@ -59,17 +53,10 @@ describe('command-generation/registry', () => {
       expect(toolIds).toContain('cursor');
       expect(toolIds).toContain('windsurf');
     });
-
-    it('should include AiDE adapter', () => {
-      const adapters = CommandAdapterRegistry.getAll();
-      const toolIds = adapters.map((a) => a.toolId);
-      expect(toolIds).toContain('aide');
-    });
   });
 
   describe('has', () => {
     it('should return true for registered tools', () => {
-      expect(CommandAdapterRegistry.has('aide')).toBe(true);
       expect(CommandAdapterRegistry.has('claude')).toBe(true);
       expect(CommandAdapterRegistry.has('cursor')).toBe(true);
       expect(CommandAdapterRegistry.has('windsurf')).toBe(true);
@@ -84,12 +71,10 @@ describe('command-generation/registry', () => {
 
   describe('adapter functionality', () => {
     it('registered adapters should have working getFilePath', () => {
-      const aideAdapter = CommandAdapterRegistry.get('aide');
       const claudeAdapter = CommandAdapterRegistry.get('claude');
       const cursorAdapter = CommandAdapterRegistry.get('cursor');
-   const windsurfAdapter = CommandAdapterRegistry.get('windsurf');
+      const windsurfAdapter = CommandAdapterRegistry.get('windsurf');
 
-      expect(aideAdapter?.getFilePath('test')).toContain('.aide');
       expect(claudeAdapter?.getFilePath('test')).toContain('.claude');
       expect(cursorAdapter?.getFilePath('test')).toContain('.cursor');
       expect(windsurfAdapter?.getFilePath('test')).toContain('.windsurf');
@@ -97,11 +82,11 @@ describe('command-generation/registry', () => {
 
     it('registered adapters should have working formatFile', () => {
       const content = {
-      id: 'test',
+        id: 'test',
         name: 'Test',
         description: 'Test desc',
         category: 'Test',
-  tags: ['tag1'],
+        tags: ['tag1'],
         body: 'Body content',
       };
 
@@ -110,14 +95,14 @@ describe('command-generation/registry', () => {
 
       const adapters = CommandAdapterRegistry.getAll();
       for (const adapter of adapters) {
-  const output = adapter.formatFile(content);
+        const output = adapter.formatFile(content);
         // All adapters should include the body content
-      expect(output).toContain('Body content');
+        expect(output).toContain('Body content');
         // Only check for YAML frontmatter for tools that use it
-if (!noYamlFrontmatter.includes(adapter.toolId)) {
+        if (!noYamlFrontmatter.includes(adapter.toolId)) {
           expect(output).toContain('---');
         }
-  }
+      }
     });
   });
 });

@@ -6,7 +6,6 @@
  */
 
 import type { ToolCommandAdapter } from './types.js';
-import { aideAdapter } from './adapters/aide.js';
 import { amazonQAdapter } from './adapters/amazon-q.js';
 import { antigravityAdapter } from './adapters/antigravity.js';
 import { auggieAdapter } from './adapters/auggie.js';
@@ -42,7 +41,6 @@ export class CommandAdapterRegistry {
 
   // Static initializer - register built-in adapters
   static {
-    CommandAdapterRegistry.register(aideAdapter);
     CommandAdapterRegistry.register(amazonQAdapter);
     CommandAdapterRegistry.register(antigravityAdapter);
     CommandAdapterRegistry.register(auggieAdapter);
@@ -85,7 +83,7 @@ export class CommandAdapterRegistry {
    * @returns The adapter or undefined if not registered
    */
   static get(toolId: string): ToolCommandAdapter | undefined {
-  return CommandAdapterRegistry.adapters.get(toolId);
+    return CommandAdapterRegistry.adapters.get(toolId);
   }
 
   /**
