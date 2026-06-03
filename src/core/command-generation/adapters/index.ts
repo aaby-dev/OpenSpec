@@ -4,6 +4,7 @@
  * Re-exports all tool command adapters.
  */
 
+export { aideAdapter } from './aide.js';
 export { amazonQAdapter } from './amazon-q.js';
 export { antigravityAdapter } from './antigravity.js';
 export { auggieAdapter } from './auggie.js';
