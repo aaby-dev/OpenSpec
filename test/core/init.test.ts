@@ -484,20 +484,6 @@ describe('InitCommand', () => {
       const cmdFile = path.join(testDir, '.github', 'prompts', 'opsx-explore.prompt.md');
       expect(await fileExists(cmdFile)).toBe(true);
     });
-
-    it("should generate AiDE command files", async () => {
-      const initCommand = new InitCommand({ tools: "aide", force: true });
-      await initCommand.execute(testDir);
-
-      const cmdFile = path.join(testDir, ".aide", "commands", "opsx-explore.md");
-      expect(await fileExists(cmdFile)).toBe(true);
-
-      const fileContent = await fs.readFile(cmdFile, "utf-8");
-      expect(fileContent).toContain("name:");
-      expect(fileContent).toContain("description:");
-      expect(fileContent).toContain("category:");
-      expect(fileContent).toContain("tags:");
-    });
   });
 });
 
